@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентація БЖД | Igor Prais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --main-blue: #2B59FF;
+            --neon-yellow: #DFFF00;
+            --dark: #0a0a0a;
+            --white: #ffffff;
+            --light-blue: #f0f4ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--white); color: var(--dark); overflow-x: hidden; text-align: center; }
+
+        /* Навігація */
+        nav {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(43, 89, 255, 0.1); backdrop-filter: blur(15px);
+            border: 1px solid rgba(43, 89, 255, 0.2); padding: 8px; border-radius: 100px;
+            z-index: 1000; display: flex; gap: 5px;
+        }
+        nav a { 
+            color: var(--main-blue); text-decoration: none; font-size: 10px; font-weight: 900; 
+            text-transform: uppercase; padding: 10px 18px; border-radius: 100px; transition: 0.3s;
+        }
+        nav a.active { background: var(--main-blue); color: var(--white); box-shadow: 0 10px 20px rgba(43, 89, 255, 0.3); }
+
+        section { min-height: 100vh; padding: 120px 10%; display: flex; align-items: center; justify-content: center; position: relative; }
+
+        /* Hero Секція */
+        #hero { background: var(--light-blue); clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
+        .hero-content { text-align: left; width: 100%; max-width: 1100px; }
+        h1 { font-size: clamp(2.2rem, 7vw, 4.5rem); font-weight: 900; line-height: 1.1; letter-spacing: -3px; color: var(--main-blue); margin-bottom: 20px; text-transform: uppercase; }
+        .highlight { background: var(--neon-yellow); color: var(--dark); padding: 0 10px; }
+        
+        .intro-card { 
+            background: var(--white); padding: 40px; border-radius: 40px; 
+            border: 1px solid var(--main-blue); box-shadow: 20px 20px 0px var(--neon-yellow);
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        /* Бенто-сітка */
+        .bento { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; width: 100%; }
+        .card { 
+            grid-column: span 12; background: var(--light-blue); padding: 40px; border-radius: 35px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid transparent;
+            text-align: left;
+        }
+        .card:hover { border-color: var(--main-blue); background: var(--white); box-shadow: 0 30px 60px rgba(43, 89, 255, 0.1); }
+        
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
+        .span-8 { grid-column: span 8; }
+
+        h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; margin-bottom: 40px; color: var(--main-blue); text-transform: uppercase; letter-spacing: -1px; text-align: left; width: 100%; }
+        h3 { font-size: 1.5rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        h3::before { content: ''; width: 12px; height: 12px; background: var(--neon-yellow); border-radius: 3px; border: 2px solid var(--main-blue); }
+
+        p { font-size: 1.15rem; line-height: 1.6; color: #333; }
+        strong { color: var(--main-blue); }
+
+        /* Loader Animation for Fatigue */
+        .stat-card {
+            background: var(--main-blue); color: white; border-radius: 35px; padding: 40px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .big-number { font-size: 6rem; font-weight: 900; color: var(--neon-yellow); line-height: 1; text-shadow: 0 0 20px rgba(223, 255, 0, 0.5); }
+        
+        /* Важливо блок - Пофікшено */
+        .important-card {
+            grid-column: span 12; background: var(--white); padding: 30px; border-radius: 25px;
+            border: 2px solid var(--main-blue); box-shadow: 0 10px 30px rgba(43, 89, 255, 0.1);
+            text-align: left; margin-top: 20px;
+        }
+
+        .footer { padding: 40px; text-align: center; font-weight: 900; opacity: 0.2; letter-spacing: 5px; text-transform: uppercase; border-top: 1px solid #eee; }
+
+        @media (max-width: 900px) { .span-4, .span-6, .span-8 { grid-column: span 12; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#hero" class="nav-link active">Вступ</a>
+        <a href="#sensors" class="nav-link">Сенсори</a>
+        <a href="#health" class="nav-link">Адаптація</a>
+        <a href="#work" class="nav-link">Робота</a>
+        <a href="#fatigue" class="nav-link">Втома</a>
+        <a href="#conclusion" class="nav-link">Висновок</a>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content" data-aos="zoom-out-up">
+            <h1>Фізіологічні та психологічні <br><span class="highlight">особливості організму</span></h1>
+            <div class="intro-card" data-tilt>
+                <p><strong>Шановні здобувачі вищої освіти!</strong> Сьогодні ми розглянемо людину як складну та динамічну біосоціальну систему в контексті безпеки життєдіяльності. Розуміння наших фізіологічних та психологічних лімітів - це не просто теоретичні знання з підручника, а фундаментальна база для збереження вашого здоров'я та життя. Почнемо.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sensors">
+        <div style="width: 100%;">
+            <h2 data-aos="fade-right">Сенсорні системи - індикатори</h2>
+            <div class="bento">
+                <div class="card span-12" data-aos="fade-up">
+                    <p>Основою нашої безпеки є сенсорна система. Будь-яка сенсорна система, або аналізатор, має чітку трикомпонентну структуру:</p>
+                </div>
+                <div class="card span-4" data-aos="flip-left" data-aos-delay="100" data-tilt>
+                    <h3>Периферична</h3>
+                    <p>Рецептори, що першими приймають удар або сигнал.</p>
+                </div>
+                <div class="card span-4" data-aos="flip-left" data-aos-delay="200" data-tilt>
+                    <h3>Провідникова</h3>
+                    <p>Нервові волокна, що передають сигнал "блискавично".</p>
+                </div>
+                <div class="card span-4" data-aos="flip-left" data-aos-delay="300" data-tilt>
+                    <h3>Центральна</h3>
+                    <p>Кора мозку, де йде аналіз: "Це безпечно чи час тікати?".</p>
+                </div>
+                <div class="card span-12" data-aos="fade-up" style="border-left: 10px solid var(--neon-yellow);">
+                    <p>Найважливішу роль відіграє <strong>зоровий аналізатор (90% інформації)</strong>. Всі системи працюють у синергії для підтримки <strong>гомеостазу</strong> — здатності організму зберігати сталість, коли зовні "штормить".</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="health" style="background: var(--light-blue);">
+        <div style="width: 100%;">
+            <h2 data-aos="fade-left">Здоров'я та адаптація</h2>
+            <div class="bento">
+                <div class="card span-8" data-aos="fade-right">
+                    <p>Здоров’я - це стан повного фізичного, психічного та соціального добробуту. Рівні:</p>
+                    <ul style="list-style: none; margin-top: 20px; font-weight: 700; text-align: left; color: var(--main-blue);">
+                        <li>↳ Індивідуальний ресурс</li>
+                        <li>↳ Групова безпека</li>
+                        <li>↳ Загальносуспільний рівень</li>
+                    </ul>
+                </div>
+                <div class="stat-card span-4" data-aos="zoom-in" data-tilt>
+                    <div class="big-number">50%</div>
+                    <p style="color: white; font-weight: 700;">успіху — це твій спосіб життя!</p>
+                </div>
+                <div class="card span-12">
+                    <p>Спадковість та екологія важливі, але безпека - це на 50% ваш <strong>свідомий вибір</strong> кожного дня.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div style="width: 100%;">
+            <h2 data-aos="fade-up">Розумова vs Фізична праця</h2>
+            <div class="bento">
+                <div class="card span-6" data-aos="fade-right" data-tilt>
+                    <h3>Фізична</h3>
+                    <p>Домінує м’язова робота і великі енерговитрати м'язів.</p>
+                </div>
+                <div class="card span-6" data-aos="fade-left" data-tilt>
+                    <h3>Розумова</h3>
+                    <p>Характеризується напруженням уваги, пам'яті та мислення.</p>
+                </div>
+                <div class="important-card" data-aos="fade-up">
+                    <p><strong>Важливо:</strong> Розумова праця споживає до <strong>20% всієї енергії організму</strong>. Це величезне навантаження на ЦНС, яке призводить до прихованого виснаження.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="fatigue" style="background: var(--light-blue);">
+        <div style="width: 100%;">
+            <h2 data-aos="zoom-in">Втома — ворог №1</h2>
+            <div class="card" style="box-shadow: 20px 20px 0px var(--main-blue); border-color: var(--main-blue);" data-tilt>
+                <p>Втома — це законний сигнал організму про вичерпання ресурсів. Якщо ігнорувати її, вона стає перевтомою.</p>
+                <p style="color: var(--main-blue); margin-top: 20px; font-weight: 900; font-size: 1.5rem;">
+                    Перевтома = помилки в коді, мікротравми та серйозні прорахунки.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="conclusion">
+        <div style="width: 100%; text-align: center;" data-aos="fade-up">
+            <h2 style="text-align: center;">Висновок</h2>
+            <div class="intro-card" style="box-shadow: 20px 20px 0px var(--main-blue); text-align: center; margin-left: auto; margin-right: auto;" data-tilt>
+                <p style="text-align: center; font-size: 1.3rem; font-weight: 700;">Безпека починається з поваги до можливостей власного організму.</p>
+                <p style="text-align: center; margin-top: 15px;">Вміння вчасно переключитися з розумової праці на фізичну та вчасно відновитися - це і є професіоналізм. Дякую за увагу! Чекаю на запитання.</p>
+            </div>
+            <div style="margin-top: 50px; font-size: 3rem; font-weight: 900; color: var(--main-blue);">ДЯКУЮ ЗА УВАГУ!</div>
+        </div>
+    </section>
+
+    <div class="footer">IGOR PRAIS 2026 • STATE TAX UNIVERSITY</div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: false });
+        // Додано 3D ефект нахилу
+        VanillaTilt.init(document.querySelectorAll(".card, .intro-card, .stat-card"), { max: 5, speed: 400, glare: true, "max-glare": 0.1 });
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            document.querySelectorAll("section").forEach(s => {
+                if (window.pageYOffset >= s.offsetTop - 300) current = s.getAttribute("id");
+            });
+            document.querySelectorAll(".nav-link").forEach(l => {
+                l.classList.remove("active");
+                if (l.getAttribute("href").includes(current)) l.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
