@@ -19,16 +19,19 @@
         html { scroll-behavior: smooth; }
         body { background-color: var(--white); color: var(--dark); overflow-x: hidden; text-align: center; }
 
-        /* Навігація - Адаптована */
+        /* Навігація - Виправлено розмір для телефонів */
         nav {
-            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(15px);
-            border: 1px solid rgba(43, 89, 255, 0.2); padding: 5px; border-radius: 100px;
-            z-index: 1000; display: flex; gap: 2px; width: 90%; max-width: fit-content;
+            position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(43, 89, 255, 0.2); padding: 4px; border-radius: 100px;
+            z-index: 1000; display: flex; gap: 2px; width: 95%; max-width: fit-content;
         }
         nav a { 
-            color: var(--main-blue); text-decoration: none; font-size: clamp(8px, 1.5vw, 10px); font-weight: 900; 
-            text-transform: uppercase; padding: 8px 12px; border-radius: 100px; transition: 0.3s;
+            color: var(--main-blue); text-decoration: none; 
+            font-size: clamp(8px, 2vw, 10px); /* Шрифт адаптується */
+            font-weight: 900; 
+            text-transform: uppercase; padding: 8px 10px; border-radius: 100px; transition: 0.3s;
             white-space: nowrap;
         }
         nav a.active { background: var(--main-blue); color: var(--white); box-shadow: 0 10px 20px rgba(43, 89, 255, 0.3); }
@@ -82,13 +85,10 @@
 
         .footer { padding: 40px 20px; text-align: center; font-weight: 900; opacity: 0.2; letter-spacing: 3px; text-transform: uppercase; border-top: 1px solid #eee; font-size: 0.8rem; }
 
-        /* Мобільні виправлення */
         @media (max-width: 900px) { 
             .span-4, .span-6, .span-8 { grid-column: span 12; }
-            section { padding: 80px 5%; }
-            .intro-card { box-shadow: 10px 10px 0px var(--neon-yellow); }
-            #fatigue .card { box-shadow: 10px 10px 0px var(--main-blue) !important; }
-            #conclusion .intro-card { box-shadow: 10px 10px 0px var(--main-blue) !important; }
+            section { padding: 80px 5% 40px; }
+            nav a { padding: 6px 8px; }
         }
     </style>
 </head>
@@ -210,7 +210,6 @@
     <script>
         AOS.init({ duration: 1000, once: false });
         
-        // Ініціалізуємо Tilt тільки якщо це не мобільний пристрій для кращого UX
         if (window.innerWidth > 900) {
             VanillaTilt.init(document.querySelectorAll(".card, .intro-card, .stat-card"), { max: 5, speed: 400, glare: true, "max-glare": 0.1 });
         }
